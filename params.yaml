@@ -1,1 +1,9 @@
-
+data_path: data/Aircraft_Annotation_DataFile.csv
+processed_data_path: data/processed
+model_params:
+  # Parameters specific to text preprocessing and model training
+  max_sequence_length: 128
+  embedding_dim: 100
+  epochs: 10
+  batch_size: 32
+  learning_rate: 0.001
