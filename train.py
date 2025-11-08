@@ -5,7 +5,7 @@ from sklearn.linear_model import LogisticRegression
 
 # 1. Simulate data loading
 print("Starting data preparation...")
-data = {'feature1': [1, 2, 3, 4, 5],
+data = {'feature1': [1, 2, 3, 4, 10],
         'feature2': [6, 7, 8, 9, 10],
         'target': [0, 1, 0, 1, 0]}
 df = pd.DataFrame(data)
