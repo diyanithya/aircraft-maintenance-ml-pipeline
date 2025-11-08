@@ -1,9 +1,5 @@
-pandas         # For reading and manipulating the CSV data
-numpy          # For numerical operations
-scikit-learn   # For model evaluation and utility functions
-nltk           # For core text processing (tokenization, stemming)
-dvc            # Data Version Control
-dvc-gdrive     # DVC connector for Google Drive remote
-# transformers # Uncomment and use if you plan to use advanced models like BERT
-# tensorflow   # Uncomment if using TensorFlow/Keras
-# torch        # Uncomment if using PyTorch
+scikit-learn
+pandas
+numpy
+joblib
+kaggle  # <-- ADD THIS LINE
