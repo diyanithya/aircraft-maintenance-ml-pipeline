@@ -1,0 +1,37 @@
+name: ML Pipeline CI
+
+# This specifies the event that triggers the workflow
+on:
+  push:
+    branches:
+      - main
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow is made up of one or more jobs
+jobs:
+  build-and-train:
+    # The environment the job will run on
+    runs-on: ubuntu-latest
+
+    # A sequence of tasks (steps)
+    steps:
+      # Step 1: Checks out your repository so the job can access the files
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      # Step 2: Sets up the Python environment (we'll use Python 3.10)
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Step 3: Installs the packages listed in requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: Runs your main ML training script
+      - name: Run ML Training Script
+        run: python train.py
