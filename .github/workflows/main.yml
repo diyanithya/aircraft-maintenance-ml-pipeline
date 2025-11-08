@@ -38,3 +38,11 @@ jobs:
           KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
           KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
         run: python train.py
+        
+    # Step 5: Upload the trained model as an artifact <-- ADD THIS STEP
+      - name: Upload Model Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: trained-ml-model
+          path: model.joblib
+       
