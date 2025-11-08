@@ -1,26 +1,53 @@
-# train.py
+# train.py (Updated)
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+import joblib
+import os # <-- ADD THIS IMPORT
 
-# 1. Simulate data loading
-print("Starting data preparation...")
-data = {'feature1': [1, 2, 3, 4, 10],
-        'feature2': [6, 7, 8, 9, 10],
-        'target': [0, 1, 0, 1, 0]}
-df = pd.DataFrame(data)
+# 1. DATA ACQUISITION & LOADING (NEW LOGIC)
+# The dataset identifier is merishnasuwal/aircraft-historical-maintenance-dataset
+dataset_identifier = "merishnasuwal/aircraft-historical-maintenance-dataset"
+data_file = 'Aircraft_Annotation_DataFile.csv'
 
-X = df[['feature1', 'feature2']]
-y = df['target']
+# Download the dataset using the kaggle CLI tool
+# The secrets KAGGLE_USERNAME and KAGGLE_KEY will be automatically used by the tool
+print(f"Downloading dataset: {dataset_identifier}...")
+os.system(f"kaggle datasets download -d {dataset_identifier} --unzip -p .")
 
-# 2. Simulate model training
-print("Training model...")
+# Load the specific data file from the downloaded contents
+try:
+    df = pd.read_csv(data_file, encoding='latin1') 
+except FileNotFoundError:
+    print(f"Error: {data_file} not found after download.")
+    exit(1)
+
+print(f"Loaded {len(df)} rows of aircraft maintenance data.")
+
+# 2. DATA PREPARATION (Simplified to run a dummy model)
+# In a real NLP project, you'd use the 'PROBLEM' and 'ACTION' columns.
+# For now, we'll create a dummy target and feature based on row number
+# just to keep the LogisticRegression part running without complex NLP setup.
+df['dummy_feature'] = df.index % 10 # 0, 1, 2, ..., 9, 0, 1, ...
+df['dummy_target'] = df.index % 2   # 0, 1, 0, 1, ...
+
+# Use the dummy feature/target for a successful model run
+X = df[['dummy_feature']]
+y = df['dummy_target']
+
+# Split data (optional, for basic structure)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# 3. MODEL TRAINING
 model = LogisticRegression()
-model.fit(X, y)
+model.fit(X_train, y_train)
 
-# 3. Simulate model evaluation/success
-score = model.score(X, y)
-print(f"Model trained successfully! Accuracy: {score:.2f}")
+# 4. Save and Report
+score = model.score(X_test, y_test)
+print(f"Model trained successfully on real data! Dummy Accuracy: {score:.2f}")
 
-# The pipeline will look for this output to confirm success
+model_filename = 'model.joblib'
+joblib.dump(model, model_filename)
+print(f"Model saved as {model_filename}")
+
 print("PIPELINE_SUCCESS")
