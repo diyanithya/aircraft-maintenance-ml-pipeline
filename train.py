@@ -46,6 +46,10 @@ model.fit(X_train, y_train)
 score = model.score(X_test, y_test)
 print(f"Model trained successfully on real data! Dummy Accuracy: {score:.2f}")
 
+# NEW: Save metric to a file
+with open('metrics.txt', 'w') as f:
+    f.write(f'Dummy Accuracy: {score:.2f}\n')
+
 model_filename = 'model.joblib'
 joblib.dump(model, model_filename)
 print(f"Model saved as {model_filename}")
