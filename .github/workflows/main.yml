@@ -32,6 +32,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 4: Runs your main ML training script
+     # Step 4: Runs your main ML training script
       - name: Run ML Training Script
+        env: # <-- ADD THIS BLOCK
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
         run: python train.py
