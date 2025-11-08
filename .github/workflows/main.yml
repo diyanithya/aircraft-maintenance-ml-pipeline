@@ -45,4 +45,11 @@ jobs:
         with:
           name: trained-ml-model
           path: model.joblib
+          
+   # NEW: Step to upload the performance metric report
+      - name: Upload Metrics Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-metrics
+          path: metrics.txt
        
